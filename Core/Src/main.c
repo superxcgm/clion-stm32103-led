@@ -95,8 +95,10 @@ int main(void)
   {
     /* USER CODE END WHILE */
     HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_SET);
     HAL_Delay(500);
     HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_RESET);
     HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
@@ -164,6 +166,16 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED0_GPIO_Port, &GPIO_InitStruct);
 
+  GPIO_InitTypeDef GPIO_InitStruct1 = {0};
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : BEEP_Pin */
+  GPIO_InitStruct1.Pin = BEEP_Pin;
+  GPIO_InitStruct1.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct1.Pull = GPIO_NOPULL;
+  GPIO_InitStruct1.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(BEEP_GPIO_Port, &GPIO_InitStruct1);
 }
 
 /* USER CODE BEGIN 4 */
