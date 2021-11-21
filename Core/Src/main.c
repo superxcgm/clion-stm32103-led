@@ -18,7 +18,9 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <stdbool.h>
 #include "main.h"
+#include "hardware.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -48,6 +50,7 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static bool Key_Scan_Long_Press(GPIO_TypeDef  *GPIOx, uint16_t GPIO_PIN);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -94,12 +97,15 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_SET);
-    HAL_Delay(500);
-    HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_RESET);
-    HAL_Delay(500);
+    if (is_key0_press()) {
+      led0_on();
+    } else {
+      led0_off();
+    }
+
+    if (is_key1_press()) {
+      beep_toggle();
+    }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -150,32 +156,7 @@ void SystemClock_Config(void)
   */
 static void MX_GPIO_Init(void)
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
-
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pin : LED0_Pin */
-  GPIO_InitStruct.Pin = LED0_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LED0_GPIO_Port, &GPIO_InitStruct);
-
-  GPIO_InitTypeDef GPIO_InitStruct1 = {0};
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : BEEP_Pin */
-  GPIO_InitStruct1.Pin = BEEP_Pin;
-  GPIO_InitStruct1.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct1.Pull = GPIO_NOPULL;
-  GPIO_InitStruct1.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(BEEP_GPIO_Port, &GPIO_InitStruct1);
+  hardware_init();
 }
 
 /* USER CODE BEGIN 4 */
