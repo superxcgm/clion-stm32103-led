@@ -124,11 +124,11 @@ void beep_toggle(void) {
   }
 }
 
-bool is_key0_press(void) {
+bool key0_is_press(void) {
   return key_scan_long_press(KEY0_GPIO_Port, KEY0_Pin);
 }
 
-bool is_key1_press(void) {
+bool key1_is_press(void) {
   return key_scan_no_long_press(KEY1_GPIO_Port, KEY1_Pin);
 }
 

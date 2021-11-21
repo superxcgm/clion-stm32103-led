@@ -97,13 +97,13 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    if (is_key0_press()) {
+    if (key0_is_press()) {
       led0_on();
     } else {
       led0_off();
     }
 
-    if (is_key1_press()) {
+    if (key1_is_press()) {
       beep_toggle();
     }
     /* USER CODE BEGIN 3 */

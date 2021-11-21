@@ -12,7 +12,7 @@ void beep_on(void);
 void beep_off(void);
 void beep_toggle(void);
 
-bool is_key0_press(void);
-bool is_key1_press(void);
+bool key0_is_press(void);
+bool key1_is_press(void);
 
 #endif //CLION_STM32103_LED_CORE_INC_HARDWARE_H_
