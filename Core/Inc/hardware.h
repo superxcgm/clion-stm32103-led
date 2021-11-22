@@ -15,4 +15,6 @@ void beep_toggle(void);
 bool key0_is_press(void);
 bool key1_is_press(void);
 
+void extix_init(void);
+
 #endif //CLION_STM32103_LED_CORE_INC_HARDWARE_H_
